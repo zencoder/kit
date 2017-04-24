@@ -1,8 +1,13 @@
 language: go
 
-script: go test -race -v ./...
+before_install:
+  - go get github.com/mattn/goveralls
+
+script:
+  - go test -race -v ./...
+  - $GOPATH/bin/goveralls -service=travis-ci
 
 go:
     - 1.7.5
-    - 1.8
+    - 1.8.1
     - tip
