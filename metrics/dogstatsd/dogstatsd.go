@@ -13,9 +13,9 @@ import (
 	"io"
 	"log"
 	"math"
-	"time"
-
+	"runtime"
 	"sync/atomic"
+	"time"
 
 	"github.com/go-kit/kit/metrics"
 )
@@ -218,6 +218,7 @@ func fwd(w io.Writer, key string, reportTicker <-chan time.Time, c <-chan string
 		case <-reportTicker:
 			flush(w, buf)
 		}
+		runtime.Gosched()
 	}
 }
 
